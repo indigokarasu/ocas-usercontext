@@ -5,38 +5,19 @@ description: >
   Infers mood, location, week theme, and day-level bullets (yesterday/today/tomorrow)
   from calendar, session history, and interaction patterns.
   Runs as cron, patches USER.md, delivers via Telegram.
-  NOT for weather (use Vesper) or long-form briefings.
 license: MIT
-source: https://github.com/indigokarasu/utilities/tree/main/ocas-usercontext
+source: https://github.com/indigokarasu/ocas-usercontext
 metadata:
   author: Indigo Karasu (indigokarasu)
-  version: 1.2.0
+  version: 1.3.0
   hermes:
-    tags: [context, daily, user-profile, cron]
+    tags: [context, daily, cron]
     category: infrastructure
-triggers:
-  - daily context
-  - user context
-  - what's my week
-  - context snapshot
 includes:
   - references/**
 ---
 
 # User Daily Context
-
-## When to Use
-
-- Daily cron generation (early morning, before first session)
-- On-demand refresh (owner asks "what's my week look like")
-- After significant context shifts (travel, project launches)
-
-## When NOT to Use
-
-- When you already have today's context and nothing has changed (skip regeneration)
-- When calendar and session data are both unavailable (silence is correct output)
-- When the only signal is weather (Vesper handles that)
-- Don't use for long-form briefings (use Vesper for morning/evening briefings)
 
 ## What it Produces
 
@@ -149,7 +130,3 @@ On first run:
 2. Add a `## Daily Context` section with a placeholder snapshot
 3. Register the cron job `ocas-usercontext` (schedule `0 7 * * *`, deliver `origin`)
 4. Log to journal
-
-## On-demand generation
-
-The owner can ask for a refresh at any time. Run the full workflow immediately, patch USER.md, and deliver.
